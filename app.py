@@ -2,6 +2,24 @@ import streamlit as st
 from pypdf import PdfReader
 import re
 import random
+# --- ŞİFRELEME SİSTEMİ BAŞLANGICI ---
+if "authenticated" not in st.session_state:
+    st.session_state["authenticated"] = False
+
+if not st.session_state["authenticated"]:
+    st.title("🔒 Korumalı Alan")
+    girilen_sifre = st.text_input("Lütfen erişim şifresini girin:", type="password")
+    
+    if st.button("Giriş Yap"):
+        # Alttaki 'gizli_abi_sifresi' kısmını istediğin şifreyle değiştirebilirsin
+        if girilen_sifre == "antalyaçamlıca": 
+            st.session_state["authenticated"] = True
+            st.rerun()
+        else:
+            st.error("Hatalı şifre! Lütfen tekrar deneyin.")
+            
+    st.stop() # Şifre doğru olana kadar aşağıdaki kodları çalıştırmaz.
+# --- ŞİFRELEME SİSTEMİ BİTİŞİ ---
 
 st.set_page_config(page_title="Molla Cami Sual-Cevap Çalışma Alanı", page_icon="📖", layout="wide")
 
